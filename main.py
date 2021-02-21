@@ -1,9 +1,9 @@
 import pygame
+import platform
 pygame.init()
-from levels import *
+
 running = True
 
-# creating window
 resolution = (800, 600)
 window = pygame.display.set_mode(resolution)
 width, height = pygame.display.get_window_size()
@@ -17,8 +17,12 @@ Game_back_button, back_button = pygame.image.load('back_button.png'), pygame.ima
 back_button_rect = back_button.get_rect(bottomright=(260, 500))
 Game_back_button_rect = Game_back_button.get_rect(bottomright=(60, 50))
 
-font = pygame.font.SysFont('inkfree', 60)
-small_font = pygame.font.SysFont('inkfree', 30)
+if platform.system() == 'Linux':
+    font = pygame.font.SysFont('urwbookman', 60)
+    small_font = pygame.font.SysFont('urwbookman', 30)
+if platform.system() == 'Windows':
+    font = pygame.font.SysFont('inkfree', 60)
+    small_font = pygame.font.SysFont('inkfree', 30)
 
 # Black text
 BText_continue = font.render('CONTINUE', True, BLACK)
@@ -162,3 +166,4 @@ while running:
         window.blit(BText_quit, (width / 2 + 50, height / 2 + 170))
 
     pygame.display.update()
+
