@@ -1,5 +1,6 @@
 import pygame
 pygame.init()
+from levels import *
 running = True
 
 # creating window
@@ -35,8 +36,11 @@ WText_quit = font.render('QUIT', True, WHITE)
 BlueText_settings = small_font.render('SETTINGS', True, BLUE)
 BlueText_difficulty = small_font.render('Difficulty', True, BLUE)
 BText_question = small_font.render('Are you sure?', True, BLACK)
+
 BText_yes = small_font.render('YES', True, BLACK)
 BText_no = small_font.render('NO', True, BLACK)
+WText_yes = small_font.render('YES', True, WHITE)
+WText_no = small_font.render('NO', True, WHITE)
 
 
 def game():
@@ -72,17 +76,22 @@ def new_game():
             elif 215 < mouse_X < 254 and 462 < mouse_Y < 487 and event.type == pygame.MOUSEBUTTONDOWN:
                 doing = False
             elif 300 < mouse_X < 350 and 360 < mouse_Y < 410:
-                pygame.draw.rect(window, LIGHT_BLACK, pygame.Rect(300, 360, 50, 50))
-                window.blit(BText_yes, (width / 2 - 100, height / 2 + 65))
-                pygame.display.update()
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     print('YES')
-            elif 425 < mouse_X < 470 and 370 < mouse_Y < 390:
-                pygame.draw.rect(window, LIGHT_BLACK, pygame.Rect(420, 360, 50, 50))
-                window.blit(BText_no, (width / 2 + 25, height / 2 + 65))
+                window.blit(WText_yes, (width / 2 - 100, height / 2 + 65))
                 pygame.display.update()
+            elif 425 < mouse_X < 470 and 370 < mouse_Y < 390:
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     print('NO')
+                    doing = False
+
+                window.blit(WText_no, (width / 2 + 25, height / 2 + 65))
+                pygame.display.update()
+            else:
+                window.blit(BText_yes, (width / 2 - 100, height / 2 + 65))
+                window.blit(BText_no, (width / 2 + 25, height / 2 + 65))
+                pygame.display.update()
+    pygame.time.delay(100)
 
 
 def settings():
@@ -95,7 +104,6 @@ def settings():
         window.blit(back_button, back_button_rect)
         pygame.display.update()
         mouse_posX, mouse_posY = pygame.mouse.get_pos()
-
         for i in pygame.event.get():
             if i.type == pygame.QUIT:
                 pygame.quit()
@@ -133,7 +141,6 @@ while running:
         if i.type == pygame.MOUSEBUTTONDOWN:
             print('SETTINGS')
             settings()
-
         window.blit(BText_continue, (width / 2, height / 2 - 40))
         window.blit(BText_new_game, (width / 2, height / 2 + 30))
         window.blit(WText_settings, (width / 2, height / 2 + 100))
@@ -148,7 +155,6 @@ while running:
         window.blit(BText_settings, (width / 2, height / 2 + 100))
         window.blit(WText_quit, (width / 2 + 50, height / 2 + 170))
         pygame.display.update()
-
     else:
         window.blit(BText_continue, (width / 2, height / 2 - 40))
         window.blit(BText_new_game, (width / 2, height / 2 + 30))
